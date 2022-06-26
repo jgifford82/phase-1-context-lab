@@ -1,4 +1,63 @@
 /* Your Code Here */
+function createEmployeeRecord(employee) {
+    return {
+        firstName: employee[0],
+        familyName: employee[1],
+        title: employee[2],
+        payPerHour: employee[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    }
+}
+
+function createEmployeeRecords(employees) {
+    return employees.map(employee => createEmployeeRecord(employee))
+}
+
+function createTimeInEvent(event) {
+    // console.log(event)
+    let [date, hour] = event.split(" ")
+    // console.log("date", date)
+    // console.log("hour", hour)
+    // console.log(event.split(" "))
+    let eventObj = {
+        type: "TimeIn",
+        hour: parseInt(hour, 10),
+        date
+    }
+    // console.log(this)
+    // employee.timeInEvents = [...employee.timeInEvents, eventObj]
+
+    this.timeInEvents.push(eventObj)
+    return this
+}
+
+
+function createTimeOutEvent(event) {
+    let [date, hour] = event.split(" ")
+    let eventObj = {
+        type: "TimeOut",
+        hour: parseInt(hour, 10),
+        date
+    }
+
+    this.timeOutEvents.push(eventObj)
+    return this
+}
+
+function hoursWorkedOnDate(date) {
+    // console.log("date", date)
+    const timeIn = this.timeInEvents.find(event => event.date === date)
+    const timeOut = this.timeOutEvents.find(event => event.date === date)
+    // console.log("time in", timeIn)
+    return (timeOut.hour - timeIn.hour)/100
+}
+
+function wagesEarnedOnDate(date) {
+    const hours = this.hoursWorkedOnDate.call(this, date)
+    // console.log("this", this)
+    return this.payPerHour * hours
+}
 
 /*
  We're giving you this function. Take a look at it, you might see some usage
